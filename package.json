@@ -1,0 +1,31 @@
+{
+  "name": "kooperativet-ai",
+  "version": "0.1.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kevinmarqfarh/kooperativet.ai.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kevinmarqfarh/kooperativet.ai/issues"
+  },
+  "homepage": "https://github.com/kevinmarqfarh/kooperativet.ai#readme",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "lucide-react": "1.16.0",
+    "react": "19.2.6",
+    "react-dom": "19.2.6"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "6.0.2",
+    "@types/react": "^19.2.15",
+    "@types/react-dom": "^19.2.3",
+    "typescript": "6.0.3",
+    "vite": "8.0.14"
+  }
+}

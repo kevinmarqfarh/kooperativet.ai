@@ -1,0 +1,26 @@
+name: RFC
+description: Discuss a high-impact product, governance or policy decision
+title: "[RFC]: "
+labels: ["rfc", "governance"]
+body:
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Why does this decision matter now?
+    validations:
+      required: true
+  - type: textarea
+    id: options
+    attributes:
+      label: Options considered
+      description: List realistic options and tradeoffs.
+    validations:
+      required: true
+  - type: textarea
+    id: recommendation
+    attributes:
+      label: Recommendation
+      description: What should the project do and why?
+    validations:
+      required: true
