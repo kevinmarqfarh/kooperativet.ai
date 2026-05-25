@@ -2256,6 +2256,45 @@ body {
   padding: 16px;
 }
 
+.section-intro {
+  position: relative;
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+  min-height: 86px;
+  border-color: #cfd8ea;
+  background:
+    linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+  padding: 18px 20px;
+  box-shadow:
+    inset 4px 0 0 var(--blue),
+    0 1px 0 rgba(17, 24, 39, 0.03);
+}
+
+.section-intro .section-icon {
+  width: 42px;
+  height: 42px;
+  border: 1px solid #c8d8fb;
+  background: var(--blue-soft);
+  color: var(--blue);
+}
+
+.section-intro h2 {
+  margin: 0 0 4px;
+  color: #172033;
+  font-size: 19px;
+  font-weight: 780;
+  line-height: 1.15;
+}
+
+.section-intro p {
+  max-width: 760px;
+  color: #657084;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
 .review-room-heading,
 .settings-panel-heading {
   display: flex;
@@ -2759,6 +2798,7 @@ html[data-theme="dark"] body {
 .app-shell[data-theme="dark"] .sidebar,
 .app-shell[data-theme="dark"] .reference-panel,
 .app-shell[data-theme="dark"] .rail-panel,
+.app-shell[data-theme="dark"] .section-intro,
 .app-shell[data-theme="dark"] .rail-toggle,
 .app-shell[data-theme="dark"] .rail-avatar-button,
 .app-shell[data-theme="dark"] .rail-utility-button,
@@ -2772,6 +2812,19 @@ html[data-theme="dark"] body {
   background: var(--surface);
   border-color: var(--line);
   color: var(--text);
+}
+
+.app-shell[data-theme="dark"] .section-intro {
+  background: linear-gradient(180deg, #111827 0%, #101725 100%);
+  border-color: var(--line);
+}
+
+.app-shell[data-theme="dark"] .section-intro h2 {
+  color: #f3f4f6;
+}
+
+.app-shell[data-theme="dark"] .section-intro p {
+  color: var(--muted);
 }
 
 .app-shell[data-theme="dark"] .rail-utility-button span {
@@ -2866,6 +2919,11 @@ html[data-theme="dark"] body {
 @media (max-width: 560px) {
   .modern-feature-grid {
     display: none;
+  }
+
+  .section-intro {
+    grid-template-columns: 1fr;
+    padding: 16px;
   }
 
   .review-room-footer {
