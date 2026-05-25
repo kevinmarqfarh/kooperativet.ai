@@ -2447,8 +2447,8 @@ body {
 
 .thread-hero {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 18px;
+  grid-template-columns: 1fr;
+  gap: 14px;
   padding: 18px;
 }
 
@@ -2469,11 +2469,48 @@ body {
 }
 
 .thread-hero-actions {
-  display: grid;
-  min-width: 132px;
+  display: flex;
+  flex-wrap: wrap;
+  min-width: 0;
   gap: 8px;
-  align-content: start;
-  justify-items: stretch;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.thread-hero-actions .vote-controls {
+  display: inline-flex;
+  width: auto;
+  min-height: 38px;
+  align-items: center;
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface-soft);
+  padding: 3px;
+}
+
+.thread-hero-actions .vote-controls button {
+  width: 32px;
+  height: 32px;
+  border: 0;
+  background: transparent;
+}
+
+.thread-hero-actions .vote-controls strong {
+  display: grid;
+  min-width: 38px;
+  height: 32px;
+  place-items: center;
+  border-right: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+  color: var(--text);
+}
+
+.thread-hero-actions .secondary-button,
+.thread-hero-actions .ghost-button {
+  min-height: 38px;
 }
 
 .thread-layout {
@@ -2835,6 +2872,15 @@ html[data-theme="dark"] body {
   .thread-hero-actions,
   .reply-composer-actions {
     grid-template-columns: 1fr;
+  }
+
+  .thread-hero-actions {
+    display: grid;
+  }
+
+  .thread-hero-actions .vote-controls {
+    width: 100%;
+    justify-content: center;
   }
 
   .thread-post {
