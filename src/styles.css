@@ -1228,11 +1228,16 @@ body {
 }
 
 .app-shell {
-  grid-template-columns: 260px minmax(760px, 1fr) 240px;
+  grid-template-columns: 260px minmax(760px, 1fr) 64px;
   gap: 20px;
   min-height: 100vh;
-  padding: 0 20px 0 0;
+  padding: 0 14px 0 0;
   background: #ffffff;
+}
+
+.app-shell.right-rail-expanded {
+  grid-template-columns: 260px minmax(760px, 1fr) 240px;
+  padding-right: 20px;
 }
 
 .sidebar {
@@ -1744,8 +1749,84 @@ body {
 .right-rail {
   top: 0;
   height: 100vh;
-  gap: 12px;
-  padding: 22px 0 36px;
+  gap: 10px;
+  align-content: start;
+  justify-items: stretch;
+  overflow: visible;
+  padding: 18px 0 36px;
+}
+
+.right-rail.is-collapsed {
+  justify-items: center;
+}
+
+.rail-toggle {
+  display: grid;
+  width: 42px;
+  height: 38px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #ffffff;
+  color: #667085;
+}
+
+.rail-toggle:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.rail-icon-stack {
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+}
+
+.rail-avatar-button,
+.rail-utility-button {
+  position: relative;
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #ffffff;
+  color: #4b5565;
+}
+
+.rail-avatar-button:hover,
+.rail-utility-button:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.rail-avatar-button .profile-photo {
+  width: 32px;
+  height: 32px;
+}
+
+.rail-avatar-button .profile-photo i {
+  right: -1px;
+  bottom: 3px;
+  width: 9px;
+  height: 9px;
+}
+
+.rail-utility-button span {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  display: grid;
+  min-width: 18px;
+  height: 18px;
+  place-items: center;
+  border: 2px solid #ffffff;
+  border-radius: 999px;
+  background: var(--red);
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 800;
 }
 
 .rail-panel {
@@ -1988,7 +2069,9 @@ body {
 }
 
 @media (max-width: 1320px) {
-  .app-shell {
+  .app-shell,
+  .app-shell.right-rail-expanded,
+  .app-shell.right-rail-collapsed {
     grid-template-columns: 240px minmax(0, 1fr);
     padding-right: 16px;
   }
@@ -1996,8 +2079,21 @@ body {
   .right-rail {
     grid-column: 2;
     height: auto;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    justify-content: end;
     padding-top: 0;
+  }
+
+  .right-rail.is-collapsed {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .right-rail.is-collapsed .rail-icon-stack {
+    grid-auto-flow: column;
+  }
+
+  .right-rail.is-expanded {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .forum-hero-grid,
@@ -2050,7 +2146,7 @@ body {
 
   .forum-hero-grid,
   .forum-bottom-grid,
-  .right-rail {
+  .right-rail.is-expanded {
     grid-template-columns: 1fr;
   }
 
@@ -2617,6 +2713,9 @@ html[data-theme="dark"] body {
 .app-shell[data-theme="dark"] .sidebar,
 .app-shell[data-theme="dark"] .reference-panel,
 .app-shell[data-theme="dark"] .rail-panel,
+.app-shell[data-theme="dark"] .rail-toggle,
+.app-shell[data-theme="dark"] .rail-avatar-button,
+.app-shell[data-theme="dark"] .rail-utility-button,
 .app-shell[data-theme="dark"] .review-room-card,
 .app-shell[data-theme="dark"] .settings-panel,
 .app-shell[data-theme="dark"] .panel,
@@ -2627,6 +2726,10 @@ html[data-theme="dark"] body {
   background: var(--surface);
   border-color: var(--line);
   color: var(--text);
+}
+
+.app-shell[data-theme="dark"] .rail-utility-button span {
+  border-color: var(--surface);
 }
 
 .app-shell[data-theme="dark"] .reference-category-list button,

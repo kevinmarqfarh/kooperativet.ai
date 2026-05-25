@@ -10,6 +10,7 @@ import {
   CheckCircle2,
   ChevronDown,
   ChevronsLeft,
+  ChevronsRight,
   CircleDot,
   Code2,
   Command,
@@ -873,6 +874,7 @@ function App() {
   const [bookmarks, setBookmarks] = useState<Record<string, boolean>>({});
   const [composerOpen, setComposerOpen] = useState(false);
   const [reportTarget, setReportTarget] = useState<{ id: string; title: string; type: string } | null>(null);
+  const [rightRailExpanded, setRightRailExpanded] = useState(false);
   const [language, setLanguage] = useState<Language>(() => {
     return window.localStorage.getItem("kooperativet-language") === "sv" ? "sv" : "en";
   });
@@ -1002,7 +1004,10 @@ function App() {
   }
 
   return (
-    <div className="app-shell" data-theme={theme}>
+    <div
+      className={`app-shell ${rightRailExpanded ? "right-rail-expanded" : "right-rail-collapsed"}`}
+      data-theme={theme}
+    >
       <Sidebar
         activeView={activeView}
         language={language}
@@ -1102,8 +1107,8 @@ function App() {
         openReports={openReports}
         labels={labels}
         onNavigate={setActiveView}
-        guidelinesAccepted={guidelinesAccepted}
-        onAcceptGuidelines={handleAcceptGuidelines}
+        expanded={rightRailExpanded}
+        onToggle={() => setRightRailExpanded((current) => !current)}
       />
 
       {composerOpen && (
@@ -2317,17 +2322,57 @@ function RightRail({
   openReports,
   labels,
   onNavigate,
-  guidelinesAccepted,
-  onAcceptGuidelines,
+  expanded,
+  onToggle,
 }: {
   openReports: Report[];
   labels: Labels;
   onNavigate: (view: View) => void;
-  guidelinesAccepted: boolean;
-  onAcceptGuidelines: () => void;
+  expanded: boolean;
+  onToggle: () => void;
 }) {
+  const reportCount = Math.max(openReports.length, 5);
+
   return (
-    <aside className="right-rail">
+    <aside className={`right-rail ${expanded ? "is-expanded" : "is-collapsed"}`} aria-label="Community utilities">
+      <button
+        className="rail-toggle"
+        type="button"
+        aria-label={expanded ? "Minimera sidopanel" : "Visa sidopanel"}
+        aria-expanded={expanded}
+        onClick={onToggle}
+      >
+        {expanded ? <ChevronsRight size={18} /> : <ChevronsLeft size={18} />}
+      </button>
+
+      {!expanded && (
+        <div className="rail-icon-stack">
+          <button className="rail-avatar-button" type="button" aria-label="Visa profilpanel" onClick={onToggle}>
+            <span className="profile-photo">
+              <span>EN</span>
+              <i />
+            </span>
+          </button>
+          <button
+            className="rail-utility-button"
+            type="button"
+            aria-label={`${reportCount} flaggade objekt`}
+            onClick={() => onNavigate("moderation")}
+          >
+            <Flag size={18} />
+            <span>{reportCount}</span>
+          </button>
+          <button className="rail-utility-button" type="button" aria-label="Visa community-ritualer" onClick={onToggle}>
+            <CalendarDays size={18} />
+          </button>
+          <button className="rail-utility-button" type="button" aria-label="Visa badges" onClick={onToggle}>
+            <Star size={18} />
+          </button>
+        </div>
+      )}
+
+      {expanded && (
+        <>
       <section className="rail-panel profile-summary">
         <div className="profile-head">
           <div className="profile-photo">
@@ -2370,7 +2415,7 @@ function RightRail({
         <div className="rail-heading">
           <h2>{labels.rail.flagged}</h2>
           <button className="reference-link with-count" type="button" onClick={() => onNavigate("moderation")}>
-            {labels.rail.viewAll} <span>{Math.max(openReports.length, 5)}</span>
+            {labels.rail.viewAll} <span>{reportCount}</span>
           </button>
         </div>
         <div className="flagged-list">
@@ -2411,6 +2456,8 @@ function RightRail({
           ))}
         </ul>
       </section>
+        </>
+      )}
     </aside>
   );
 }
