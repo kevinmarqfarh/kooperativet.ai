@@ -179,7 +179,7 @@ const translations = {
       newPost: "New Post",
       titles: {
         overview: ["Forum", "Collaborate, build, and ship together."],
-        forum: ["Forum", "Collaborate, build, and ship together."],
+        forum: ["Threads", "Browse categories and all active discussions."],
         reviewRooms: ["Review Rooms", "Choose feedback mode before the review begins."],
         prompts: ["Prompt Bank", "Verified prompts, evals and reusable workflows."],
         buildLogs: ["Build Logs", "Follow what members are building in public."],
@@ -240,7 +240,7 @@ const translations = {
       newPost: "Ny post",
       titles: {
         overview: ["Forum", "Samarbeta, bygg och skeppa tillsammans."],
-        forum: ["Forum", "Samarbeta, bygg och skeppa tillsammans."],
+        forum: ["Trådar", "Bläddra bland kategorier och alla aktiva diskussioner."],
         reviewRooms: ["Reviewrum", "Välj feedbackläge innan granskningen börjar."],
         prompts: ["Promptbank", "Verifierade prompts, evals och återanvändbara workflows."],
         buildLogs: ["Byggloggar", "Följ vad medlemmar bygger öppet."],
@@ -295,7 +295,7 @@ const translations = {
 type Labels = (typeof translations)[Language];
 
 const navItems: Array<{ id: View; label: Record<Language, string>; icon: ReactNode }> = [
-  { id: "forum", label: { en: "Forum", sv: "Forum" }, icon: <MessageCircle size={18} /> },
+  { id: "overview", label: { en: "Forum", sv: "Forum" }, icon: <MessageCircle size={18} /> },
   { id: "reviewRooms", label: { en: "Review Rooms", sv: "Reviewrum" }, icon: <BadgeCheck size={18} /> },
   { id: "prompts", label: { en: "Prompt Bank", sv: "Promptbank" }, icon: <Layers size={18} /> },
   { id: "buildLogs", label: { en: "Build Logs", sv: "Byggloggar" }, icon: <Code2 size={18} /> },
@@ -1157,8 +1157,8 @@ function Sidebar({
             key={item.id}
             type="button"
             className={`nav-item ${
-              activeView === item.id || (activeView === "overview" && item.id === "forum")
-                || (activeView === "thread" && item.id === "forum")
+              activeView === item.id
+                || (item.id === "overview" && (activeView === "forum" || activeView === "thread"))
                 ? "is-active"
                 : ""
             }`}
